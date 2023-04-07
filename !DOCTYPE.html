@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <form>
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id" required><br>
+
+      <label for="sitio">Sitio:</label>
+      <select id="sitio" name="sitio" required>
+        <option value="">--Seleccione un sitio--</option>
+        <option value="Oficina A">Oficina A</option>
+        <option value="Oficina B">Oficina B</option>
+        <option value="Planta">Planta</option>
+      </select><br>
+
+      <label for="accion">Acción:</label>
+      <select id="accion" name="accion" required>
+        <option value="">--Seleccione una acción--</option>
+        <option value="Ingreso">Ingreso</option>
+        <option value="Salida">Salida</option>
+      </select><br>
+
+      <input type="hidden" id="fecha" name="fecha" value="<?php echo date('Y-m-d H:i:s'); ?>">
+      
+      <button type="submit">Enviar</button>
+    </form>
+    
+    <script>
+      const form = document.querySelector('form');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const response = await fetch('https://script.google.com/macros/s/SCRIPT_ID/exec?' + new URLSearchParams(formData));
+        const text = await response.text();
+        alert(text);
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
